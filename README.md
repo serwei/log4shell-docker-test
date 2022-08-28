@@ -55,7 +55,10 @@ docker exec vulnap ls /tmp
 
 ## Build it yourself (you don't need any Java-related tooling):
 
-You can pull the images, but not too useful as the meat are in the Java source.
+git clone this. The meat is in the Java source, and this README.
+Also, the Dockerfile only builds the target, and is a generic rip of the spring boot Dockerfile.
+
+The MainController.java is the Web request processor, and that innocuous line *logger.info("....")* is what kicks off the internal aspect of the attack.
 
 
 ## Self-study Observations and Way Forward
@@ -67,6 +70,7 @@ Learning points:
 - Spring Boot: is very impressive for developers, but Docker-Compose is better for putting services together.
 - Tomcat: is a b*tch* and modding its official images are a trip to Hell: I tried to put log4j into a few and ultimately wasted time on CLASSPATHing Docker *and* Tomcat
 - Exploits: are scary. After this exercise I have first-hand experience on only just Log4Shell... omg
+- Exploits: I'm curious why the use of X-Api-Version, or "XML Configuration File Path" in the Windows demo work, but not when I try "User-Agent"?
 - Windows Subsystem for Linux: this tripped me up a while testing the original demo. "curl" in Powershell is a bad imitation of "curl.exe" from WSL
 
 
